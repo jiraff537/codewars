@@ -31,7 +31,6 @@ public class Main {
                 .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
                 .limit(3)
                 .forEach(m -> res.add(m.getKey()));
-
         return res;
     }
 }
