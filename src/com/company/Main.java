@@ -8,26 +8,25 @@ public class Main {
     public static void main(String[] args) {
         System.out.println("Hello world!");
         //top3("a A a b c c d d d d e e e e e # / \\ \\ . '       '");
-//        top3("e e e e DDD ddd DdD: ddd ddd aa aA Aa, bb cc cC e e e");
-        top3("  '''  ");
+        top3("e e e e DDD ddd DdD: ddd ddd aa aA Aa, bb cc cC e e e");
+//        top3("  '''  ");
     }
 
     public static List<String> top3(String s) {
         System.out.println(s);
-        List<String> list;
-        list = Arrays.stream(s.chars()
+        HashMap<String, Integer> map = new HashMap<>();
+        Arrays.stream(s.chars()
                 .filter(ch -> ("#\\/.,:;!@$%^&*()-_=+".indexOf(ch) == -1))
                 .mapToObj(ch -> String.valueOf((char) ch))
                 .collect(Collectors.joining())
-                .toLowerCase().split(" ")).collect(Collectors.toList());
-
-        HashMap<String, Integer> map = new HashMap<>();
-
-        list.forEach(el -> map.merge(el, 1, Integer::sum));
+                .toLowerCase().split(" ")).collect(Collectors.toList())
+                .forEach(el -> map.merge(el, 1, Integer::sum));
 
         map.remove(""); //FixMe is it needed?? <<CHECK INPUT DATA
         map.remove("'");//TODO ''' won't 'and' 'and and'
         //TODO FIND DIFFERENCE BTN ''' won't 'and' 'and and'
+
+        //fixme REGEXP!!! ^'w{1,}  'wont
 
         List<String> res = new ArrayList<>();
         map.entrySet()
