@@ -28,13 +28,30 @@ public class Main {
 
         //fixme REGEXP!!! ^'w{1,}  'wont
 
-        List<String> res = new ArrayList<>();
+        List<String> sortedLimited = new ArrayList<>();
+        List<String> zres = new ArrayList<>();
         map.entrySet()
                 .stream()
                 .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
                 .limit(3)
-                .forEach(m -> res.add(m.getKey()));
-        return res;
+                .forEach(m -> sortedLimited.add(m.getKey()));
+
+        List<String> filteredFromSprcSymbols = new ArrayList<>();
+        for (String re : sortedLimited) {
+            if (re.matches("[a-z]{1,}") ||
+                    re.matches("[a-z]{1,}'$") ||
+                    re.matches("^\'[a-z]{1,}'$") ||
+                    re.matches("^[a-z]{1,}'[a-z]{1,1}$")) {
+                filteredFromSprcSymbols.add(re);
+            }
+        }
+
+//        zres = list;
+//        System.out.println("zres=");
+//        zres.stream().forEach(x -> System.out.print(x + " "));
+//        //
+
+        return filteredFromSprcSymbols;
     }
 }
 
